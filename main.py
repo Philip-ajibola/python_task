@@ -37,13 +37,13 @@ def add_first_middle_last_number_in_list(list1):
                 total += list1[number]
                 continue
             if number == len(list1) / 2:
-                total += (list1[number] + list1[number -1]) / 2
+                total += (list1[number] + list1[number - 1]) / 2
                 continue
-            if number == len(list1)-1:
+            if number == len(list1) - 1:
                 total += list1[number]
         return total
     else:
-        for number in list1[::len(list1)//2]:
+        for number in list1[::len(list1) // 2]:
             total += number
         return total
 
@@ -55,13 +55,14 @@ def collect_ten_numbers_from_user():
         list.append(userInput)
     return list1
 
+
 def return_collection_of_numbers_without_having_duplicate(list1):
     my_set = set(list1)
     return my_set
 
 
 def sum_collection(my_set):
-    if type(my_set)==set:
+    if type(my_set) == set:
         total = 0
         for number in my_set:
             total += number
@@ -70,8 +71,8 @@ def sum_collection(my_set):
         return f"set type required not {type(my_set)}"
 
 
-def find_interception(set1,set2):
-    if type(set1) == set and type(set2)== set:
+def find_interception(set1, set2):
+    if type(set1) == set and type(set2) == set:
         set3 = set()
         for number in set1:
             if number in set2:
@@ -81,3 +82,11 @@ def find_interception(set1,set2):
         return "both collection must be set"
 
 
+def collect_two_string_and_swap(string1, string2):
+    return string2[0:2:] + string1[2::] + " " + string1[0:2:] + string2[2::]
+
+
+def collect_two_string_and_swap_two(string1, string2):
+    first_two_char_for_string1 = string2[:2]
+    first_two_char_for_string2 = string1[:2]
+    return first_two_char_for_string1 + string1[2:] + " " + first_two_char_for_string2 + string2[2:]

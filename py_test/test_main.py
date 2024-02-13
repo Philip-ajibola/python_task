@@ -51,3 +51,7 @@ class TaskTest(TestCase):
         set2 = {3, 2, 6, 9, 10, 12, 14, 17}
         result = "both collection must be set"
         self.assertEqual(result, main.find_interception(list1, set2))
+
+    def test_function_collect_two_string_and_swap(self):
+        result = "xyc abz"
+        self.assertEqual(result,main.collect_two_string_and_swap_two("abc","xyz"))
