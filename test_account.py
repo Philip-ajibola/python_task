@@ -1,9 +1,9 @@
 from unittest import TestCase
 
-from bank_app.account import Account
-from bank_app.insufficient_funds_exception import InsufficientFundsException
-from bank_app.invalid_amount_exception import InvalidAmountException
-from bank_app.invalid_pin_exception import InvalidPinException
+from account import Account
+from insufficient_funds_exception import InsufficientFundsException
+from invalid_amount_exception import InvalidAmountException
+from invalid_pin_exception import InvalidPinException
 
 
 class TestAccount(TestCase):
