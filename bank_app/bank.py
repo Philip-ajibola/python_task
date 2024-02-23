@@ -1,4 +1,4 @@
-from account import Account
+from bank_app.account import Account
 from account_does_not_exist_exception import AccountNotFoundException
 from invalid_pin_exception import InvalidPinException
 
