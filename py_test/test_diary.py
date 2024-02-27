@@ -20,20 +20,25 @@ class TestDiary(TestCase):
 
     def test_that_entry_can_be_created(self):
         diary = Diary("user_name", "password")
-        diary.create_entry("body", "title")
+        diary.create_entry("title", "body")
         self.assertEqual(1, len(diary.get_element_in_entry()))
 
     def test_that_i_can_find_entry_by_id(self):
         diary = Diary("user_name", "password")
-        diary.create_entry("body", "title")
+        diary.create_entry("title", "body")
         expected = diary.find_entry(1)
         print(expected)
         self.assertEqual(expected, diary.get_element_in_entry()[0])
 
     def test_that_i_can_delete_entry(self):
         diary = Diary("user_name", "password")
-        diary.create_entry("body", "title")
+        diary.create_entry("title", "body")
         self.assertEqual(1, len(diary.get_element_in_entry()))
         diary.deleteEntry(1)
         self.assertEqual(0, len(diary.get_element_in_entry()))
+
+    def test_that_i_can_update_entry(self):
+        diary = Diary("user_name", "password")
+        diary.create_entry("title", "body")
+        diary.update_entry(1,"updated_title","updated_body")
 

@@ -6,3 +6,9 @@ class Entry:
 
     def get_id(self):
         return self.__id
+
+    def update_body(self,body: str):
+        self.__body = body
+
+    def update_title(self,title: str):
+        self.__body = title

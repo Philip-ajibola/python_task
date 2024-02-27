@@ -6,8 +6,8 @@ from diary_file.entry import Entry
 class Diary:
     def __init__(self, user_name: str, password: str):
         self.__entries = []
-        self.user_name = user_name
-        self.password = password
+        self.__user_name = user_name
+        self.__password = password
         self.__islocked = True
         self.__entry_id_generator = 0
 
@@ -19,7 +19,7 @@ class Diary:
         return self.__islocked
 
     def is_not_valid(self, password: str) -> bool:
-        return self.password != password
+        return self.__password != password
 
     def lock_diary(self):
         self.__islocked = True
@@ -37,7 +37,8 @@ class Diary:
         return self.__entries
 
     def deleteEntry(self, entry_id: int):
-        self.find_entry(entry_id)
+        entry = self.find_entry(entry_id)
+        self.__entries.remove(entry)
 
     def find_entry(self, entry_id: int) -> Entry:
         for entry in self.__entries:
@@ -47,3 +48,15 @@ class Diary:
             else:
                 raise ValueError("Entry Does Not Exist ")
 
+    def update_entry(self, entry_id: int,updated_title,updated_body):
+        entry_to_update = self.find_entry(entry_id)
+        for entry in self.__entries:
+            if entry == entry_to_update:
+                entry.update_title(updated_title)
+                entry.update_body(updated_body)
+
+    def get_user_name(self):
+        return self.__user_name
+
+    def is_not_valid(self,password: str) -> bool:
+        return password != self.__password
