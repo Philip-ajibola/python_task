@@ -1,3 +1,5 @@
+from typing import List, Any
+
 from diary_file.entry import Entry
 
 
@@ -31,13 +33,17 @@ class Diary:
         self.__entry_id_generator += 1
         return self.__entry_id_generator
 
-    def get_number_of_entry(self) -> int:
-        return len(self.__entries)
+    def get_element_in_entry(self) -> list[Any]:
+        return self.__entries
 
     def deleteEntry(self, entry_id: int):
         self.find_entry(entry_id)
 
     def find_entry(self, entry_id: int) -> Entry:
         for entry in self.__entries:
-            if entry.getId() == id:
+            print(entry.get_id())
+            if entry.get_id() == entry_id:
                 return entry
+            else:
+                raise ValueError("Entry Does Not Exist ")
+
