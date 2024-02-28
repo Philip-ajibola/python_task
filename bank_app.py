@@ -1,8 +1,6 @@
 from bank import Bank
 from invalid_pin_exception import InvalidPinException
-from account_does_not_exist_exception import AccountNotFoundException
-from insufficient_funds_exception import InsufficientFundsException
-from invalid_amount_exception import InvalidAmountException
+from tkinter import simpledialog, messagebox
 
 
 class BankApp:
@@ -11,106 +9,149 @@ class BankApp:
 
     def display(self):
         print("")
-        print("Bank App")
-        print("1.Create customer\n2.Close Account\n3.Deposit \n4.Transfer \n5.Withdraw\n6.Check balance "
-              "\n7.Exit App")
-        print("*")
-        choice = input("Enter your choice: ")
-
-        if choice == "1":
-            self.create_account()
-        elif choice == "2":
-            self.close_account()
-        elif choice == "3":
-            self.deposit()
-        elif choice == "4":
-            self.transfer()
-        elif choice == "5":
-            self.withdraw()
-        elif choice == "6":
-            self.check_balance()
-        elif choice == "7":
-            self.exit()
-        else:
-            print("Enter valid choice")
-            self.display()
+        user_response = BankApp.user_input("""
+        <><><><><><><> WELCOME TO AJIBOLA'S<><><><><><><><><>
+            The best bank you can ever think of :)
+            [<1>] sign in with account number   [<2>] create an account
+            
+                            [<3>] Exit Bank
+        """)
+        match user_response:
+            case "1":
+                try:
+                    account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
+                    self.display_what_user_can_do(account)
+                except Exception as e:
+                    BankApp.output(e)
+                    BankApp.output("Create An Account With us Today ")
+                    self.display()
+            case "2":
+                self.create_account()
+                account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
+                self.display_what_user_can_do(account)
+            case "3":
+                BankApp.output("Good-Bye")
+            case _:
+                BankApp.output("Wrong Input")
+                self.display()
 
     def create_account(self):
-        first_name = input("Enter first name: ")
-        last_name = input("Enter last name: ")
-        pin = input("Enter pin: ")
+        first_name = BankApp.user_input("Enter first name: ")
+        last_name = BankApp.user_input("Enter last name: ")
+        pin = BankApp.user_input("Enter pin: ")
+        try:
+            self.verify_pin(pin)
+        except Exception as e:
+            BankApp.output(e)
+            self.create_account()
         account = self.bank.register_customer(first_name, last_name, pin)
-        print("Customer register successfully!")
-        print("Account Number: ", account.get_number())
-        self.display()
+        BankApp.output("Customer register successfully!")
+        BankApp.output(f"Your account number is {account.get_number()}")
+
 
     def deposit(self):
         try:
-            account = None
-            try:
-                account_number = int(input("Enter your account number: "))
-                account = self.bank.find_account(account_number)
-            except Exception as e:
-                print(e)
-                self.display()
-            amount = int(input("Enter an amount: "))
+            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
+            amount = int(BankApp.user_input("Enter an amount: "))
             account.deposit(amount)
-            print("Amount deposited successfully!")
+            BankApp.output("Amount deposited successfully!")
         except Exception as e:
-            print(e)
+            BankApp.output(e)
         finally:
-            self.display()
+            self.display_what_user_can_do()
 
     def transfer(self):
         try:
             amount = int(input("Enter transfer amount: "))
-            sender_account = self.bank.find_account( int(input("Enter your account: ")))
-            receiver_account = self.bank.find_account(int(input("Enter the receiver account number: ")))
-            pin = input("Enter your pin: ")
-            sender_account.withdraw(amount,pin)
-            print("Amount transferred successfully!")
+            sender_account = self.bank.find_account(int(BankApp.user_input("Enter your account: ")))
+            receiver_account = self.bank.find_account(int(BankApp.user_input("Enter the receiver account number: ")))
+            pin = BankApp.user_input("Enter your pin: ")
+            sender_account.withdraw(amount, pin)
+            BankApp.output("Amount transferred successfully!")
         except Exception as e:
-            print(e)
+            BankApp.output(e)
         finally:
-            self.display()
+            self.display_what_user_can_do()
 
     def withdraw(self):
         try:
-            account = self.bank.find_account(int(input("Enter your account number: ")))
-            amount = int(input("Enter the amount: "))
-            pin = input("Enter your pin: ")
-            account.withdraw(amount,pin)
-
-            print("Amount withdrawn successfully!")
+            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
+            amount = int(BankApp.user_input("Enter the amount: "))
+            pin = BankApp.user_input("Enter your pin: ")
+            account.withdraw(amount, pin)
+            BankApp.output("Amount withdrawn successfully!")
         except Exception as e:
-            print(e)
+            BankApp.output(e)
         finally:
-            self.display()
+            self.display_what_user_can_do()
 
     def check_balance(self):
-        account_number = input("Enter your account number: ")
-        pin = input("Enter your pin: ")
         try:
-            balance = self.bank.check_balance(int(account_number), pin)
-            print("Your balance is:", balance)
+            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
+            pin = BankApp.user_input("Enter your pin: ")
+            BankApp.output(f"Your balance is:{account.check_balance(pin)}")
         except InvalidPinException as e:
-            print(e)
+            BankApp.output(e)
         finally:
-            self.display()
+            self.display_what_user_can_do()
 
     def close_account(self):
-        account_number = int(input("Enter the account number: "))
-        pin = input("Enter your pin: ")
+
         try:
-            self.bank.remove_account(account_number, pin)
-            print("Account closed successfully!")
+            account = self.bank.find_account(int(BankApp.user_input("Enter the account number: ")))
+            pin = BankApp.user_input("Enter your pin: ")
+            self.bank.remove_account(account, pin)
+            BankApp.output("Account closed successfully!")
         except InvalidPinException as e:
-            print(e)
+            BankApp.output(e)
+        finally:
+            self.display_what_user_can_do()
 
     @staticmethod
     def exit():
-        print("Exit")
+        BankApp.output("Exit")
         return
+
+    @staticmethod
+    def output(prompt):
+        messagebox.showinfo("Input", prompt)
+
+    @staticmethod
+    def user_input(prompt):
+        return simpledialog.askstring("Input", prompt)
+
+    def display_what_user_can_do(self, account):
+        user_response = BankApp.user_input(f""" 
+        <<<<<<< Welcome Your account number is {account.get_number()}>>>>>>>>>>>>
+                    What Do You Want To Do With Us Today :)
+                    
+          [<1>] Deposit                 [<2>]    Withdraw
+          
+          [<3>] Check Balance           [<4>]    Transfer
+          
+          [<5>] Close Bank              [<6>]    Back
+        """)
+        match user_response:
+            case "1":
+                self.deposit()
+            case "2":
+                self.withdraw()
+            case "3":
+                self.check_balance()
+            case "4":
+                self.transfer()
+            case "5":
+                self.close_account()
+            case "6":
+                self.display()
+            case _:
+                BankApp.output("Wrong Input")
+                self.display()
+
+    @staticmethod
+    def verify_pin(pin):
+        verified_pin = BankApp.user_input("Verify Pin")
+        if pin != verified_pin: raise InvalidPinException("Pin MisMatch")
 
 
 def main():
