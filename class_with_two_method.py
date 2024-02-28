@@ -1,13 +1,11 @@
-class Methods:
+class StringMethods:
     def __init__(self):
-        self.string = ""
+        self.__string = ""
 
-    @property
-    def string(self):
-        return self._string
+    def print_string(self):
+        return self.__string.upper()
 
-    @string.setter
-    def string(self,string):
-        self._string = string
+    def get_string(self, string):
+        self.__string = string
 
 
