@@ -1,11 +1,11 @@
 class StringMethods:
     def __init__(self):
-        self.__my_string = ""
+        self.__string = ""
 
     def print_string(self):
-        return self.__my_string.upper()
+        return self.__string.upper()
 
     def get_string(self, string):
-        self.__my_string = string
+        self.__string = string
 
 
