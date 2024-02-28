@@ -41,6 +41,7 @@ class Bank:
     def deposit(self, account_number: int, amount: int):
         account = self.find_account(account_number)
         account.deposit(amount)
+        if account is None: raise AccountNotFoundException("Account not Found ")
 
     def check_balance(self, account_number: int, pin: str) -> int:
         account = self.find_account(account_number)
