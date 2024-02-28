@@ -26,9 +26,9 @@ class Account:
         if self.__is_balance_insufficient(amount): raise InsufficientFundsException("Insufficient Funds")
         self.__balance -= amount
 
-
     def get_number(self):
         return self.__account_number
+
     def is_pin_not_valid(self, pin):
         return pin != self.__account_pin
 
