@@ -18,7 +18,7 @@ class Bank:
         return self.__account_number
 
     def __generate_account_number(self) -> int:
-        self.__account_number = self.__account_number + 1
+        self.__account_number += 1
         return self.__account_number
 
     def __add_account_to_bank(self, account: Account) -> None:

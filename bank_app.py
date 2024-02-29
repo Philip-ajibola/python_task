@@ -10,7 +10,7 @@ class BankApp:
     def display(self):
         print("")
         user_response = BankApp.user_input("""
-        <><><><><><><> WELCOME TO AJIBOLA'S<><><><><><><><><>
+        <><><><><><><> WELCOME TO AJIBOLA'S Bank <><><><><><><><><>
             The best bank you can ever think of :)
             [<1>] sign in with account number   [<2>] create an account
             
@@ -50,6 +50,7 @@ class BankApp:
 
 
     def deposit(self):
+        account = None
         try:
             account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
             amount = int(BankApp.user_input("Enter an amount: "))
@@ -58,22 +59,24 @@ class BankApp:
         except Exception as e:
             BankApp.output(e)
         finally:
-            self.display_what_user_can_do()
+            self.display_what_user_can_do(account)
 
     def transfer(self):
+        account = None
         try:
             amount = int(input("Enter transfer amount: "))
-            sender_account = self.bank.find_account(int(BankApp.user_input("Enter your account: ")))
+            account = self.bank.find_account(int(BankApp.user_input("Enter your account: ")))
             receiver_account = self.bank.find_account(int(BankApp.user_input("Enter the receiver account number: ")))
             pin = BankApp.user_input("Enter your pin: ")
-            sender_account.withdraw(amount, pin)
+            account.withdraw(amount, pin)
             BankApp.output("Amount transferred successfully!")
         except Exception as e:
             BankApp.output(e)
         finally:
-            self.display_what_user_can_do()
+            self.display_what_user_can_do(account)
 
     def withdraw(self):
+        account = None
         try:
             account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
             amount = int(BankApp.user_input("Enter the amount: "))
@@ -83,9 +86,10 @@ class BankApp:
         except Exception as e:
             BankApp.output(e)
         finally:
-            self.display_what_user_can_do()
+            self.display_what_user_can_do(account)
 
     def check_balance(self):
+        account = None
         try:
             account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
             pin = BankApp.user_input("Enter your pin: ")
@@ -93,10 +97,10 @@ class BankApp:
         except InvalidPinException as e:
             BankApp.output(e)
         finally:
-            self.display_what_user_can_do()
+            self.display_what_user_can_do(account)
 
     def close_account(self):
-
+        account = None
         try:
             account = self.bank.find_account(int(BankApp.user_input("Enter the account number: ")))
             pin = BankApp.user_input("Enter your pin: ")
@@ -105,7 +109,7 @@ class BankApp:
         except InvalidPinException as e:
             BankApp.output(e)
         finally:
-            self.display_what_user_can_do()
+            self.display_what_user_can_do(account)
 
     @staticmethod
     def exit():
