@@ -58,5 +58,4 @@ class Diary:
     def get_user_name(self):
         return self.__user_name
 
-    def is_not_valid(self,password: str) -> bool:
-        return password != self.__password
+

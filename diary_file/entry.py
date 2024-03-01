@@ -12,3 +12,6 @@ class Entry:
 
     def update_title(self,title: str):
         self.__body = title
+
+    def __repr__(self):
+        return (f"Title: {self.__title} \n\n\nBody{self.__body}")
