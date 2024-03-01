@@ -18,11 +18,16 @@ class Complex:
     def __gt__(self, other):
         return self.left > other.left and self.right > other.right
 
+    def __iadd__(self, other):
+        self.left += other.left
+        self.right += other.right
+        return Complex(self.left,self.right)
+
 
 c1 = Complex(2, 3)
 c2 = Complex(5, -2)
-c3 = Complex(2, 3)
-print(c1 + c2)
-print(c1 - c2)
-print(c3 == c1)
-print(c3 != c2)
+c3 = Complex(-1, 2)
+c1 +=c3
+c1 +=c3
+print(c1)
+
