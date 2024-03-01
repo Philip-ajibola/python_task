@@ -148,7 +148,7 @@ class DiaryApp:
             case 6:
                 DiaryApp.output("Bye!!")
             case _:
-                DiaryApp.output("Wrong Input ")
+                DiaryApp.output("Wrong Input Please Pay Attention ")
                 DiaryApp.display_response_to_user_input(diary, user_input)
 
     @staticmethod
