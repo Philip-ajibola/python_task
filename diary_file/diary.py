@@ -8,21 +8,21 @@ class Diary:
         self.__entries = []
         self.__user_name = user_name
         self.__password = password
-        self.__islocked = True
+        self.__isLocked = True
         self.__entry_id_generator = 0
 
     def unlock_diary(self, password: str):
         if self.is_not_valid(password): raise ValueError("Wrong password")
-        self.__islocked = False
+        self.__isLocked = False
 
     def isLocked(self) -> bool:
-        return self.__islocked
+        return self.__isLocked
 
     def is_not_valid(self, password: str) -> bool:
         return self.__password != password
 
     def lock_diary(self):
-        self.__islocked = True
+        self.__isLocked = True
 
     def create_entry(self, title: str, body: str):
         entry_id = self.__generate_entry_id()

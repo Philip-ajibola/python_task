@@ -118,7 +118,7 @@ class BankApp:
 
     @staticmethod
     def output(prompt):
-        messagebox.showinfo("Input", prompt)
+        messagebox.showinfo("Output", prompt)
 
     @staticmethod
     def user_input(prompt):
