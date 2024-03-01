@@ -58,4 +58,11 @@ class Diary:
     def get_user_name(self):
         return self.__user_name
 
+    def getEntryNumber(self,title):
+        for entry in self.__entries:
+            if entry.get_title() == title:
+                return entry.get_id()
+
+
+
 
