@@ -43,7 +43,7 @@ class DiaryApp:
             title = DiaryApp._input_("Enter Title of Entry")
             body  = DiaryApp._input_("Enter body Of The Entry")
             diary.create_entry(title,body)
-            DiaryApp.output(f"Your EntryId is {diary.getEntryNumber()}")
+            DiaryApp.output(f"Your EntryId is {diary.getEntryNumber(title)}")
         except Exception as e:
             DiaryApp.output(f"{e}")
     @staticmethod
