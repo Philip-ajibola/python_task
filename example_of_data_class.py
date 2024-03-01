@@ -13,6 +13,6 @@ class Account:
 
 
 account = Account("philip", Decimal(100000))
-account.withdraw(Decimal(1000))
+account.withdraw(Decimal(10000))
 print(account.balance)
 

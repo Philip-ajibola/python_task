@@ -10,7 +10,7 @@ class BankApp:
     def display(self):
         print("")
         user_response = BankApp.user_input("""
-        <><><><><><><> WELCOME TO AJIBOLA'S Bank <><><><><><><><><>
+        <><><><><><><><> WELCOME TO AJIBOLA'S Bank <><><><><><><><><>
             The best bank you can ever think of :)
             [<1>] sign in with account number   [<2>] create an account
             
