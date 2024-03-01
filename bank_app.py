@@ -19,6 +19,7 @@ class BankApp:
         match user_response:
             case "1":
                 try:
+
                     account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
                     self.display_what_user_can_do(account)
                 except Exception as e:
@@ -26,11 +27,15 @@ class BankApp:
                     BankApp.output("Create An Account With us Today ")
                     self.display()
             case "2":
-                self.create_account()
-                account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
-                self.display_what_user_can_do(account)
+                try:
+                    self.create_account()
+                    account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
+                    self.display_what_user_can_do(account)
+                except Exception as e:
+                    BankApp.output(f"{e}")
+                    self.display()
             case "3":
-                BankApp.output("Good-Bye")
+                BankApp.output("Thank you for choosing our bank \nthe best bank app ever \nGood-Bye")
             case _:
                 BankApp.output("Wrong Input")
                 self.display()
@@ -48,7 +53,6 @@ class BankApp:
         BankApp.output("Customer register successfully!")
         BankApp.output(f"Your account number is {account.get_number()}")
 
-
     def deposit(self):
         account = None
         try:
@@ -64,11 +68,12 @@ class BankApp:
     def transfer(self):
         account = None
         try:
-            amount = int(input("Enter transfer amount: "))
             account = self.bank.find_account(int(BankApp.user_input("Enter your account: ")))
             receiver_account = self.bank.find_account(int(BankApp.user_input("Enter the receiver account number: ")))
+            amount = int(BankApp.user_input("Enter transfer amount: "))
             pin = BankApp.user_input("Enter your pin: ")
             account.withdraw(amount, pin)
+            receiver_account.deposit(amount)
             BankApp.output("Amount transferred successfully!")
         except Exception as e:
             BankApp.output(e)
@@ -108,7 +113,6 @@ class BankApp:
             BankApp.output("Account closed successfully!")
         except InvalidPinException as e:
             BankApp.output(e)
-        finally:
             self.display_what_user_can_do(account)
 
     @staticmethod
@@ -143,9 +147,11 @@ class BankApp:
             case "3":
                 self.check_balance()
             case "4":
+                print("yes")
                 self.transfer()
             case "5":
                 self.close_account()
+                self.display()
             case "6":
                 self.display()
             case _:
