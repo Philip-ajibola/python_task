@@ -24,6 +24,8 @@ class DiaryApp:
             try:
                 password = DiaryApp._input_("Enter Password To Unlock Diary")
                 diary.is_not_valid(password)
+                time.sleep(0.5)
+                DiaryApp.output("Diary UnLocked")
             except Exception as e:
                 DiaryApp.output(f"{e}")
 
@@ -43,6 +45,8 @@ class DiaryApp:
             title = DiaryApp._input_("Enter Title of Entry")
             body = DiaryApp._input_("Enter body Of The Entry")
             diary.create_entry(title, body)
+            time.sleep(0.5)
+            DiaryApp.output("Entry Successfully Added")
             DiaryApp.output(f"Your EntryId is {diary.getEntryNumber(title)} \nMake sure you don't forget your entry id")
         except Exception as e:
             DiaryApp.output(f"{e}")
@@ -62,6 +66,18 @@ class DiaryApp:
             new_title = DiaryApp._input_("Enter Title")
             new_body = DiaryApp._input_("Enter Body")
             diary.update_entry(entry_id, new_title, new_body)
+            time.sleep(0.5)
+            DiaryApp.output("Entry Updated Successfully ")
+        except Exception as e:
+            DiaryApp.output(f"{e}")
+
+    @staticmethod
+    def delete_entry(diary: Diary):
+        try:
+            entry_id = int(DiaryApp._input_("Enter entryId"))
+            diary.delete_entry(entry_id)
+            time.sleep(0.5)
+            DiaryApp.output("Entry Deleted")
         except Exception as e:
             DiaryApp.output(f"{e}")
 
@@ -72,3 +88,7 @@ class DiaryApp:
             return password
         else:
             raise ValueError("Wrong Input")
+
+    @staticmethod
+    def check_if_diary_unlock(diary: Diary):
+        if diary.isLocked(): DiaryApp.unLock_diary()

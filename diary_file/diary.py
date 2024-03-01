@@ -36,7 +36,7 @@ class Diary:
     def get_element_in_entry(self) -> list[Any]:
         return self.__entries
 
-    def deleteEntry(self, entry_id: int):
+    def delete_entry(self, entry_id: int):
         entry = self.find_entry(entry_id)
         self.__entries.remove(entry)
 

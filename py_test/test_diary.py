@@ -34,7 +34,7 @@ class TestDiary(TestCase):
         diary = Diary("user_name", "password")
         diary.create_entry("title", "body")
         self.assertEqual(1, len(diary.get_element_in_entry()))
-        diary.deleteEntry(1)
+        diary.delete_entry(1)
         self.assertEqual(0, len(diary.get_element_in_entry()))
 
     def test_that_i_can_update_entry(self):
