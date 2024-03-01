@@ -9,7 +9,7 @@ class DiaryApp:
     @staticmethod
     def create_dairy():
         user_name = DiaryApp._input_("Enter Your User_name ")
-        password = DiaryApp.verify_password(DiaryApp._input_("set password "))
+        password = DiaryApp.__verify_password(DiaryApp._input_("set password "))
         diary = Diary(user_name, password)
 
     @staticmethod
@@ -17,6 +17,7 @@ class DiaryApp:
         diary.lock_diary()
         time.sleep(0.5)
         DiaryApp.output("Diary Successfully Locked")
+        DiaryApp.display()
 
     @staticmethod
     def unLock_diary(diary: Diary):
@@ -28,16 +29,24 @@ class DiaryApp:
                 DiaryApp.output("Diary UnLocked")
             except Exception as e:
                 DiaryApp.output(f"{e}")
+            finally:
+                DiaryApp.display()
+        else:
+            DiaryApp.output("Diary is Unlocked Already")
 
     @staticmethod
     def find_entry_by_id(diary: Diary):
         try:
+            DiaryApp.__check_if_diary_unlock(diary)
+            if not (DiaryApp.__check_if_diary_unlock(diary)): DiaryApp.output("Diary is Unlocked Already")
             user_response = int(DiaryApp._input_("Enter your EntryId"))
             returned_entry = diary.find_entry(user_response)
             DiaryApp.output(f"{returned_entry}")
 
         except Exception as e:
             DiaryApp.output(f"{e}")
+        finally:
+            DiaryApp.display()
 
     @staticmethod
     def add_entry(diary: Diary):
@@ -50,6 +59,8 @@ class DiaryApp:
             DiaryApp.output(f"Your EntryId is {diary.getEntryNumber(title)} \nMake sure you don't forget your entry id")
         except Exception as e:
             DiaryApp.output(f"{e}")
+        finally:
+            DiaryApp.display()
 
     @staticmethod
     def output(message: str):
@@ -62,6 +73,7 @@ class DiaryApp:
     @staticmethod
     def update_entry(diary: Diary):
         try:
+            DiaryApp.__check_if_diary_unlock(diary)
             entry_id = int(DiaryApp._input_("Enter entryId"))
             new_title = DiaryApp._input_("Enter Title")
             new_body = DiaryApp._input_("Enter Body")
@@ -70,6 +82,8 @@ class DiaryApp:
             DiaryApp.output("Entry Updated Successfully ")
         except Exception as e:
             DiaryApp.output(f"{e}")
+        finally:
+            DiaryApp.display()
 
     @staticmethod
     def delete_entry(diary: Diary):
@@ -80,9 +94,11 @@ class DiaryApp:
             DiaryApp.output("Entry Deleted")
         except Exception as e:
             DiaryApp.output(f"{e}")
+        finally:
+            DiaryApp.display()
 
     @staticmethod
-    def verify_password(password: str):
+    def __verify_password(password: str):
         password2 = DiaryApp._input_("Verify Password")
         if password2 == password:
             return password
@@ -90,5 +106,21 @@ class DiaryApp:
             raise ValueError("Wrong Input")
 
     @staticmethod
-    def check_if_diary_unlock(diary: Diary):
-        if diary.isLocked(): DiaryApp.unLock_diary()
+    def __check_if_diary_unlock(diary: Diary):
+        if diary.isLocked():
+            password = DiaryApp._input_("Entry is Locked \nEnter Password Lock Entry")
+            diary.is_not_valid(password)
+            diary.unlock_diary(password)
+            return True
+        return False
+
+    @staticmethod
+    def display():
+        user_input = int(DiaryApp._input_("""
+                    <<<<<<< What would you love to do today >>>>>
+                        [(1)] Add Entry         [(2)] Update Entry
+                        
+                        [(3)] Find Entry        [(4)] Delete Entry
+                        
+                        [(5)] Lock Entry        [(6)] Exit App
+                    """))
