@@ -64,3 +64,12 @@ class TestTicTacTo(TestCase):
     def test_that_when_Player_try_to_play_in_an_already_filled_box_error_is_thrown(self):
         with self.assertRaises(ValueError):
             self.players[0].play(10, self.ticTacto)
+
+    def test_that_game_can_be_won_by_first_row(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(5, self.ticTacto)
+        self.players[0].play(3, self.ticTacto)
+        self.players[1].play(4, self.ticTacto)
+        self.players[0].play(2, self.ticTacto)
+
+        self.assertEqual("player 1 wins",self.ticTacto.getWinner())
