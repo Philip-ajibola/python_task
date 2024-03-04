@@ -3,22 +3,22 @@ from tic_tac_to.value import Value
 
 
 class TicTacTo:
-    Player = []
     board = []
 
     def __init__(self):
         value = Value.EMPTY
         self.board = [[value, value, value], [value, value, value], [value, value, value]]
+        self.players =[]
         player1 = Player(1, Value.X)
         player2 = Player(2, Value.O)
-        self.Player.append(player1)
-        self.Player.append(player2)
+        self.players.append(player1)
+        self.players.append(player2)
 
     def get_board(self):
         return self.board
 
     def get_player(self):
-        return self.Player
+        return self.players
 
     def pickPosition(self, position, value):
         self.check_if_player_played_in_row_one_and_fill_board(position, value)
@@ -49,3 +49,4 @@ class TicTacTo:
                 self.board[2][1] = value
             else:
                 self.board[2][2] = value
+
