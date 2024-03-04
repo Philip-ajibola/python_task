@@ -92,3 +92,65 @@ class TestTicTacTo(TestCase):
         self.players[0].play(8, self.ticTacto)
 
         self.assertEqual("Player 1 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_by_first_column(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(2, self.ticTacto)
+        self.players[0].play(4, self.ticTacto)
+        self.players[1].play(3, self.ticTacto)
+        self.players[0].play(7, self.ticTacto)
+
+        self.assertEqual("Player 1 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_by_second_column(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(2, self.ticTacto)
+        self.players[0].play(4, self.ticTacto)
+        self.players[1].play(5, self.ticTacto)
+        self.players[0].play(9, self.ticTacto)
+        self.players[1].play(8, self.ticTacto)
+
+        self.assertEqual("Player 2 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_by_third_column(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(3, self.ticTacto)
+        self.players[0].play(4, self.ticTacto)
+        self.players[1].play(6, self.ticTacto)
+        self.players[0].play(8, self.ticTacto)
+        self.players[1].play(9, self.ticTacto)
+
+        self.assertEqual("Player 2 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_diagonally_to_the_left(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(3, self.ticTacto)
+        self.players[0].play(5, self.ticTacto)
+        self.players[1].play(6, self.ticTacto)
+        self.players[0].play(9, self.ticTacto)
+        self.players[1].play(8, self.ticTacto)
+
+        self.assertEqual("Player 1 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_diagonally_to_the_right(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(3, self.ticTacto)
+        self.players[0].play(4, self.ticTacto)
+        self.players[1].play(5, self.ticTacto)
+        self.players[0].play(9, self.ticTacto)
+        self.players[1].play(7, self.ticTacto)
+
+        self.assertEqual("Player 2 Wins", self.ticTacto.getWinner())
+
+    def test_that_game_can_be_draw(self):
+        self.players[0].play(1, self.ticTacto)
+        self.players[1].play(5, self.ticTacto)
+        self.players[0].play(8, self.ticTacto)
+        self.players[1].play(7, self.ticTacto)
+        self.players[0].play(3, self.ticTacto)
+        self.players[1].play(2, self.ticTacto)
+        self.players[0].play(9, self.ticTacto)
+        self.players[1].play(6, self.ticTacto)
+        self.players[0].play(4, self.ticTacto)
+
+        self.assertEqual("The game is a draw", self.ticTacto.getWinner())
