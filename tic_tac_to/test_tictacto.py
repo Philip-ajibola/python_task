@@ -72,4 +72,23 @@ class TestTicTacTo(TestCase):
         self.players[1].play(4, self.ticTacto)
         self.players[0].play(2, self.ticTacto)
 
-        self.assertEqual("player 1 wins",self.ticTacto.getWinner())
+        self.assertEqual("Player 1 Wins",self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_by_second_row(self):
+
+        self.players[0].play(4, self.ticTacto)
+        self.players[1].play(1, self.ticTacto)
+        self.players[0].play(5, self.ticTacto)
+        self.players[1].play(2, self.ticTacto)
+        self.players[0].play(6, self.ticTacto)
+
+        self.assertEqual("Player 1 Wins",self.ticTacto.getWinner())
+
+    def test_that_game_can_be_won_by_third_row(self):
+        self.players[0].play(9, self.ticTacto)
+        self.players[1].play(1, self.ticTacto)
+        self.players[0].play(7, self.ticTacto)
+        self.players[1].play(2, self.ticTacto)
+        self.players[0].play(8, self.ticTacto)
+
+        self.assertEqual("Player 1 Wins", self.ticTacto.getWinner())
