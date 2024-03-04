@@ -4,7 +4,6 @@ from typing import Callable
 from tic_tac_to.value import Value
 
 
-
 class Player:
     def __init__(self, player_id: int, value: Value):
         self.__id = player_id
