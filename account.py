@@ -21,7 +21,7 @@ class Account:
         return self.__balance
 
     def withdraw(self, amount: int, pin) -> None:
-        if self.is_pin_not_valid(pin): raise InvalidAmountException("Invalid Amount")
+        if self.is_pin_not_valid(pin): raise InvalidPinException("Invalid Pin")
         if self.__is_amount_valid(amount): raise InvalidAmountException("Invalid Amount")
         if self.__is_balance_insufficient(amount): raise InsufficientFundsException("Insufficient Funds")
         self.__balance -= amount

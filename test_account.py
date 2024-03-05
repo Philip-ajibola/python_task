@@ -7,6 +7,10 @@ from invalid_pin_exception import InvalidPinException
 
 
 class TestAccount(TestCase):
+    def test_that_balance_is_zero_at_point_of_creation(self):
+        account = Account("firstName LastName", 1, "correct_pin")
+        self.assertEqual(0, account.check_balance("correct_pin"))
+
     def test_that_I_can_deposit(self):
         account = Account("firstName LastName", 1, "correct_pin")
         account.deposit(500)
@@ -39,19 +43,25 @@ class TestAccount(TestCase):
         account = Account("firstName LastName", 1, "correct_pin")
         account.deposit(5_000)
         account.withdraw(1_000, "correct_pin")
-        account.withdraw(2_000,"correct_pin")
+        account.withdraw(2_000, "correct_pin")
         self.assertEqual(2_000, account.check_balance("correct_pin"))
 
     def test_that_I_cant_withdraw_negative_amount_from_account(self):
         account = Account("firstName LastName", 1, "correct_pin")
         account.deposit(5_000)
         with self.assertRaises(InvalidAmountException):
-            account.withdraw(-1_000,"correct_pin")
+            account.withdraw(-1_000, "correct_pin")
         self.assertEqual(5_000, account.check_balance("correct_pin"))
 
     def test_that_I_cant_withdraw_amount_greater_than_balance_from_account(self):
         account = Account("firstName LastName", 1, "correct_pin")
         account.deposit(5_000)
         with self.assertRaises(InsufficientFundsException):
-            account.withdraw(6_000,"correct_pin")
+            account.withdraw(6_000, "correct_pin")
         self.assertEqual(5_000, account.check_balance("correct_pin"))
+
+    def test_that_I_cant_withdraw_when_pin_is_wrong(self):
+        account = Account("firstName LastName", 1, "correct_pin")
+        account.deposit(5_000)
+        with self.assertRaises(InvalidPinException):
+            account.withdraw(3_000, "wrong_pin")
