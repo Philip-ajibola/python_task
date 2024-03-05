@@ -15,8 +15,15 @@ class TicTacToeApp:
 
     @staticmethod
     def play_game(tic_tac_toe: TicTacTo):
-        TicTacToeApp.check_empty_box_for_player_one(tic_tac_toe)
-        print(tic_tac_toe)
+        for number in range(5):
+            TicTacToeApp.check_empty_box_for_player_one(tic_tac_toe)
+            print(tic_tac_toe)
+            if tic_tac_toe.getWinner() is not None:
+                print(tic_tac_toe.getWinner())
+            if number < 4:
+                TicTacToeApp.check_empty_box_for_player_two(tic_tac_toe)
+                print(tic_tac_toe)
+
     @staticmethod
     def collect_player_one_input(tic_tac_toe: TicTacTo):
         player1_input = int(input("Player one enter the box you want to fill "))
