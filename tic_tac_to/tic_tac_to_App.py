@@ -3,7 +3,7 @@ from tic_tac_to.tictacto import TicTacTo
 
 class TicTacToeApp:
     @staticmethod
-    def main_app(tic_tac_toe: TicTacTo):
+    def display_heading():
         print(""""
         Welcome to Tic-Tac-Toe Game 
         Enjoy your game as you play
@@ -12,17 +12,20 @@ class TicTacToeApp:
         
         """)
 
-
     @staticmethod
-    def play_game(tic_tac_toe: TicTacTo):
+    def play(tic_tac_toe: TicTacTo):
         for number in range(5):
             TicTacToeApp.check_empty_box_for_player_one(tic_tac_toe)
             print(tic_tac_toe)
             if tic_tac_toe.getWinner() is not None:
                 print(tic_tac_toe.getWinner())
+                break
             if number < 4:
                 TicTacToeApp.check_empty_box_for_player_two(tic_tac_toe)
                 print(tic_tac_toe)
+                if tic_tac_toe.getWinner() is not None:
+                    print(tic_tac_toe.getWinner())
+                    break
 
     @staticmethod
     def collect_player_one_input(tic_tac_toe: TicTacTo):
@@ -35,7 +38,7 @@ class TicTacToeApp:
         tic_tac_toe.fill_box(player2_input, tic_tac_toe.get_player()[1].get_value())
 
     @staticmethod
-    def check_empty_box_for_player_one(tic_tac_toe:TicTacTo):
+    def check_empty_box_for_player_one(tic_tac_toe: TicTacTo):
         condition = True
         while condition:
             try:
@@ -45,7 +48,7 @@ class TicTacToeApp:
                 print(e)
 
     @staticmethod
-    def check_empty_box_for_player_two(tic_tac_toe:TicTacTo):
+    def check_empty_box_for_player_two(tic_tac_toe: TicTacTo):
         condition = True
         while condition:
             try:
@@ -54,4 +57,11 @@ class TicTacToeApp:
             except Exception as e:
                 print(e)
 
-
+    @staticmethod
+    def main_menu(tic_tac_toe:TicTacTo):
+        TicTacToeApp.display_heading()
+        print()
+        user_response = ""
+        while user_response is not "no":
+            print(tic_tac_toe)
+            TicTacToeApp.play(tic_tac_toe)
