@@ -3,7 +3,6 @@ from tic_tac_to.value import Value
 
 
 class TicTacTo:
-    board = []
 
     def __init__(self):
         value = Value.EMPTY
@@ -54,8 +53,10 @@ class TicTacTo:
             else:
                 self.board[2][2] = value
 
-    def __validate_user_input(self, user_input: int):
-        if user_input > 9: raise ValueError("Box Number not found")
+    @staticmethod
+    def __validate_user_input(user_input: int):
+        if user_input> 9 or user_input <= 0:
+            raise ValueError("Box Number not found")
 
     def __check_if_box_is_empty(self, position: int):
         if self.box_checker.__contains__(position):
@@ -105,18 +106,19 @@ class TicTacTo:
         self.__check_if_player_played_in_row_three_and_fill_board(position, value)
 
     def __str__(self):
-        print(self.display_board())
+        return f"{self.display_board()}"
 
     def display_board(self):
         expectedString = ""
-        for row in range(len(self.board)):
-            for cell in range(len(self.board[row])):
-                expectedString += self.__printSpaceIfValueIsOorX(self.board[row][cell]) + " |"
+        for row in self.board:
+            for cell in row:
+                expectedString += self.__printSpaceIfValueIsOorX(cell) + " |"
             expectedString += "\n______________________\n"
-            return expectedString
+        return expectedString
 
-    def __printSpaceIfValueIsOorX(self, value: Value):
+    @staticmethod
+    def __printSpaceIfValueIsOorX(value: Value):
         if value == Value.X or value == Value.O:
-            return "  " + str(value) + "  "
+            return "  " + value.name + "  "
         else:
-            return str(Value.EMPTY)
+            return Value.EMPTY.name
