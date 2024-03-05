@@ -7,9 +7,14 @@ class TestDiaries(TestCase):
     def setUp(self):
         self.diaries = Diaries()
 
-    def test_that_I_can_add_to_Diaries(self):
+    def test_that_I_can_add_diary_to_Diaries(self):
         self.diaries.add("user_name", "password")
         self.assertEqual(1, len(self.diaries.get_list_of_diary()))
+
+    def test_that_I_can_add_more_diary_to_Diaries(self):
+        self.diaries.add("user_name", "password")
+        self.diaries.add("my_user_name", "password")
+        self.assertEqual(2, len(self.diaries.get_list_of_diary()))
 
     def test_that_i_find_diary_by_user_name(self):
         self.diaries.add("user_name", "password")
