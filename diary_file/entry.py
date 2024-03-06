@@ -14,7 +14,7 @@ class Entry:
         self.__body = body
 
     def update_title(self, title: str):
-        self.__body = title
+        self.__title = title
 
     def __repr__(self):
         return (f"Title: {self.__title} \n\n\nBody{self.__body}")

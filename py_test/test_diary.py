@@ -54,7 +54,9 @@ class TestDiary(TestCase):
     def test_that_i_can_update_entry(self):
         diary = Diary("user_name", "password")
         diary.create_entry("title", "body")
+        entry = diary.find_entry(1)
         diary.update_entry(1, "updated_title", "updated_body")
+        self.assertEqual(entry.get_title(), "updated_title")
 
     def test_that_i_cant_update_entry_when_entryId_is_wrong(self):
         diary = Diary("user_name", "password")

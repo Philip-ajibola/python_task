@@ -7,7 +7,7 @@ from invalid_pin_exception import InvalidPinException
 
 class Account:
     def __init__(self, account_name, account_number, account_pin):
-        self.account_name = account_name
+        self.__account_name = account_name
         self.__balance = 0
         self.__account_number = account_number
         self.__account_pin = account_pin
@@ -28,6 +28,9 @@ class Account:
 
     def get_number(self):
         return self.__account_number
+
+    def get_name(self) -> str:
+        return self.__account_name
 
     def is_pin_not_valid(self, pin):
         return pin != self.__account_pin

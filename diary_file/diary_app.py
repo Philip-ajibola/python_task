@@ -9,7 +9,7 @@ class DiaryApp:
     @staticmethod
     def create_dairy():
 
-        user_name = DiaryApp._input_("Welcome to My Diary \nThe best diary you can ever think of enjoy the App\n "
+        user_name = DiaryApp._input_("Welcome to My Diary \n\nThe best diary you can ever think of enjoy the App\n\n "
                                      "Enter Your User_name ")
         password = DiaryApp.__verify_password(DiaryApp._input_("set password "))
         diary = Diary(user_name, password)
@@ -123,6 +123,7 @@ class DiaryApp:
     def display(diary):
         user_input = int(DiaryApp._input_("""
                     <<<<<<< What would you love to do today >>>>>
+                    
                         [(1)] Add Entry         [(2)] Update Entry
                         
                         [(3)] Find Entry        [(4)] Delete Entry

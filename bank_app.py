@@ -1,3 +1,4 @@
+from account import Account
 from bank import Bank
 from invalid_pin_exception import InvalidPinException
 from tkinter import simpledialog, messagebox
@@ -5,13 +6,15 @@ from tkinter import simpledialog, messagebox
 
 class BankApp:
     def __init__(self):
-        self.bank = Bank("Ajibola'd Bank")
+        self.bank = Bank("Ajibola's Bank")
 
     def display(self):
         print("")
         user_response = BankApp.user_input("""
         <><><><><><><><> WELCOME TO AJIBOLA'S Bank <><><><><><><><><>
+        
             The best bank you can ever think of :)
+            
             [<1>] sign in with account number   [<2>] create an account
             
                             [<3>] Exit Bank
@@ -19,8 +22,7 @@ class BankApp:
         match user_response:
             case "1":
                 try:
-
-                    account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
+                    account = self.bank.find_account(int(BankApp.user_input("Login with Your Account Number")))
                     self.display_what_user_can_do(account)
                 except Exception as e:
                     BankApp.output(e)
@@ -29,7 +31,7 @@ class BankApp:
             case "2":
                 try:
                     self.create_account()
-                    account = self.bank.find_account(int(BankApp.user_input("Enter Your Account Number")))
+                    account = self.bank.find_account(int(BankApp.user_input("Login with  Your Account Number")))
                     self.display_what_user_can_do(account)
                 except Exception as e:
                     BankApp.output(f"{e}")
@@ -41,24 +43,20 @@ class BankApp:
                 self.display()
 
     def create_account(self):
-        first_name = BankApp.user_input("Enter first name: ")
-        last_name = BankApp.user_input("Enter last name: ")
-        self.collect_customer_names(first_name, last_name)
-        pin = BankApp.user_input("Enter pin: ")
+
         try:
-            self.verify_pin(pin)
+            name = self.collect_customer_names()
+            pin = self.verify_pin()
+            account = self.bank.register_customer(name[0], name[1], pin)
+            BankApp.output("Customer register successfully!")
+            BankApp.output(f"Your account number is {account.get_number()}")
         except Exception as e:
             BankApp.output(e)
             self.create_account()
-        account = self.bank.register_customer(first_name, last_name, pin)
-        BankApp.output("Customer register successfully!")
-        BankApp.output(f"Your account number is {account.get_number()}")
 
-    def deposit(self):
-        account = None
+    def deposit(self,account: Account):
         try:
-            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
-            amount = int(BankApp.user_input("Enter an amount: "))
+            amount = int(BankApp.user_input("Enter amount you want to deposit :) : "))
             account.deposit(amount)
             BankApp.output("Amount deposited successfully!")
         except Exception as e:
@@ -66,10 +64,8 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def transfer(self):
-        account = None
+    def transfer(self,account: Account):
         try:
-            account = self.bank.find_account(int(BankApp.user_input("Enter your account: ")))
             receiver_account = self.bank.find_account(int(BankApp.user_input("Enter the receiver account number: ")))
             amount = int(BankApp.user_input("Enter transfer amount: "))
             pin = BankApp.user_input("Enter your pin: ")
@@ -81,10 +77,8 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def withdraw(self):
-        account = None
+    def withdraw(self,account: Account):
         try:
-            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
             amount = int(BankApp.user_input("Enter the amount: "))
             pin = BankApp.user_input("Enter your pin: ")
             account.withdraw(amount, pin)
@@ -94,10 +88,8 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def check_balance(self):
-        account = None
+    def check_balance(self,account: Account):
         try:
-            account = self.bank.find_account(int(BankApp.user_input("Enter your account number: ")))
             pin = BankApp.user_input("Enter your pin: ")
             BankApp.output(f"Your balance is:{account.check_balance(pin)}")
         except InvalidPinException as e:
@@ -105,10 +97,8 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def close_account(self):
-        account = None
+    def close_account(self,account: Account):
         try:
-            account = self.bank.find_account(int(BankApp.user_input("Enter the account number: ")))
             pin = BankApp.user_input("Enter your pin: ")
             self.bank.remove_account(account, pin)
             BankApp.output("Account closed successfully!")
@@ -131,7 +121,8 @@ class BankApp:
 
     def display_what_user_can_do(self, account):
         user_response = BankApp.user_input(f""" 
-        <<<<<<< Welcome Your account number is {account.get_number()}>>>>>>>>>>>>
+        <<<<<<< Welcome to Ajibola's Bank >>>>>>>>>>>>
+            {account.get_name()}  Your account number is  {account.get_number()}
                     What Do You Want To Do With Us Today :)
                     
           [<1>] Deposit                 [<2>]    Withdraw
@@ -142,16 +133,15 @@ class BankApp:
         """)
         match user_response:
             case "1":
-                self.deposit()
+                self.deposit(account)
             case "2":
-                self.withdraw()
+                self.withdraw(account)
             case "3":
-                self.check_balance()
+                self.check_balance(account)
             case "4":
-                print("yes")
-                self.transfer()
+                self.transfer(account)
             case "5":
-                self.close_account()
+                self.close_account(account)
                 self.display()
             case "6":
                 self.display()
@@ -160,16 +150,31 @@ class BankApp:
                 self.display()
 
     @staticmethod
-    def verify_pin(pin):
+    def verify_pin():
+        pin = BankApp.user_input("Enter pin: ")
+        if len(pin) != 4: raise InvalidPinException("Pin length must be 4 characters")
         verified_pin = BankApp.user_input("Verify Pin")
-        if verified_pin.isspace(): raise InvalidPinException("Pin Can't Be A Space Character alone")
-        if pin.isalpha(): raise InvalidPinException("Pin Can't Be A Alpha Character ")
-        if pin != verified_pin: raise InvalidPinException("Pin MisMatch")
+        BankApp.if_pin_is_invalid(pin, verified_pin)
+        return pin
 
     @staticmethod
-    def collect_customer_names(first_name, last_name):
-        if first_name.isspace(): raise ValueError("First Name Can't Be A space Character alone")
-        if last_name.isspace(): raise ValueError("Last Name Can't Be A space Character alone")
+    def if_pin_is_invalid(pin, verified_pin):
+        if pin != verified_pin: raise InvalidPinException("Pin MisMatch")
+        if pin.isspace(): raise InvalidPinException("Pin Can't Be A Space Character alone")
+        if pin.isalpha(): raise InvalidPinException("Pin Can't Be A Alpha Character ")
+
+    @staticmethod
+    def verify_customer_names(name):
+        if name.isspace(): raise ValueError("First Name Can't Be A space Character alone")
+
+    def collect_customer_names(self):
+        first_name = BankApp.user_input("Enter first name: ")
+        self.verify_customer_names(first_name)
+        last_name = BankApp.user_input("Enter last name: ")
+        self.verify_customer_names(last_name)
+        return first_name, last_name
+
+
 def main():
     bank_app = BankApp()
     bank_app.display()
