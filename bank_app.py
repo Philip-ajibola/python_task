@@ -43,6 +43,7 @@ class BankApp:
     def create_account(self):
         first_name = BankApp.user_input("Enter first name: ")
         last_name = BankApp.user_input("Enter last name: ")
+        self.collect_customer_names(first_name, last_name)
         pin = BankApp.user_input("Enter pin: ")
         try:
             self.verify_pin(pin)
@@ -161,9 +162,14 @@ class BankApp:
     @staticmethod
     def verify_pin(pin):
         verified_pin = BankApp.user_input("Verify Pin")
+        if verified_pin.isspace(): raise InvalidPinException("Pin Can't Be A Space Character alone")
+        if pin.isalpha(): raise InvalidPinException("Pin Can't Be A Alpha Character ")
         if pin != verified_pin: raise InvalidPinException("Pin MisMatch")
 
-
+    @staticmethod
+    def collect_customer_names(first_name, last_name):
+        if first_name.isspace(): raise ValueError("First Name Can't Be A space Character alone")
+        if last_name.isspace(): raise ValueError("Last Name Can't Be A space Character alone")
 def main():
     bank_app = BankApp()
     bank_app.display()
