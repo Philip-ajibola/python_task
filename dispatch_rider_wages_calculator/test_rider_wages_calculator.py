@@ -18,3 +18,11 @@ class Test(TestCase):
     def test_when_rider_delivery_is_greater_than_or_equal_to_70_number_of_delivery_is_multiplied_by_160(self):
         expectedWages = rider_wages_calculator.calculate_rider_wages(80)
         self.assertEqual(expectedWages, 45_000)
+
+    def test_when_rider_delivery_number_is_invalid_number_exception_isThrown(self):
+        with self.assertRaises(ValueError):
+            rider_wages_calculator.calculate_rider_wages(-1)
+
+    def test_when_no_delivery_is_made_the_rider_collect_base_pay_only(self):
+        expectedWages = rider_wages_calculator.calculate_rider_wages(0)
+        self.assertEqual(5_000, expectedWages)
