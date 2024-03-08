@@ -1,9 +1,11 @@
+import time
 from random import randint
 
 from tic_tac_teo_with_computer.tic_tac_teo import TicTacToe
 
 
 class TicTacToeApp:
+    list1 = []
     @staticmethod
     def display_heading():
         print(""""
@@ -36,14 +38,17 @@ class TicTacToeApp:
     @staticmethod
     def collect_player_one_input(tic_tac_toe: TicTacToe):
         player1_input = int(input("Player one enter the box you want to fill "))
+        TicTacToeApp.list1.append(player1_input)
         tic_tac_toe.pickPosition(player1_input, tic_tac_toe.get_player()[0].get_value())
 
     @staticmethod
     def collect_player_two_input(tic_tac_toe: TicTacToe):
+        print("The Computer is Playing Next... ")
+        time.sleep(1)
         player2_input = randint(1, 10)
-        list1 = []
-        while list1.__contains__(player2_input):
+        while TicTacToeApp.list1.__contains__(player2_input):
             player2_input = randint(1, 10)
+        TicTacToeApp.list1.append(player2_input)
         tic_tac_toe.pickPosition(player2_input, tic_tac_toe.get_player()[1].get_value())
 
     @staticmethod
