@@ -9,9 +9,11 @@ class TicTacToeApp:
         print(""""
         Welcome to Tic-Tac-Toe Game 
         Enjoy your game as you play
+        You Are Playing With The Computer
 
-        Player One Uses X and Player Two Uses O
-
+        Your Value Is X While The Computer Value is O 
+        
+                Enjoy Your Game With The Computer
         """)
 
     @staticmethod
@@ -40,7 +42,7 @@ class TicTacToeApp:
     def collect_player_two_input(tic_tac_toe: TicTacToe):
         player2_input = randint(1, 10)
         list1 = []
-        while player2_input.__contains__(player2_input):
+        while list1.__contains__(player2_input):
             player2_input = randint(1, 10)
         tic_tac_toe.pickPosition(player2_input, tic_tac_toe.get_player()[1].get_value())
 
