@@ -49,7 +49,6 @@ class TicTacToeApp:
         time.sleep(1)
         computer_input = randint(1, 9)
         while TicTacToeApp.list1.__contains__(computer_input):
-            print("yes")
             computer_input = randint(1, 9)
         TicTacToeApp.list1.append(computer_input)
         tic_tac_toe.pickPosition(computer_input, tic_tac_toe.get_player()[1].get_value())
