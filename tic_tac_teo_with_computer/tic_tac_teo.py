@@ -88,9 +88,9 @@ class TicTacToe:
 
     def __check_winner_with_players_values(self, value: Value) -> str:
         if value == Value.X:
-            return "Player 1 Wins"
+            return "Congratulations\nYou Won The Computer"
         elif value == Value.O:
-            return "Player 2 Wins"
+            return "The Computer Wins"
 
     def __check_if_player_win_diagonally(self) -> str:
         if self.board[0][0] == self.board[1][1] and self.board[0][0] == self.board[2][2] and self.board[0][0] != Value.EMPTY:

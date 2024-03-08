@@ -6,6 +6,7 @@ from tic_tac_teo_with_computer.tic_tac_teo import TicTacToe
 
 class TicTacToeApp:
     list1 = []
+
     @staticmethod
     def display_heading():
         print(""""
@@ -43,13 +44,18 @@ class TicTacToeApp:
 
     @staticmethod
     def collect_player_two_input(tic_tac_toe: TicTacToe):
+
+        tic_tac_toe.pickPosition(TicTacToeApp.collect_computer_value(), tic_tac_toe.get_player()[1].get_value())
+
+    @staticmethod
+    def collect_computer_value():
         print("The Computer is Playing Next... ")
         time.sleep(1)
         player2_input = randint(1, 10)
         while TicTacToeApp.list1.__contains__(player2_input):
             player2_input = randint(1, 10)
         TicTacToeApp.list1.append(player2_input)
-        tic_tac_toe.pickPosition(player2_input, tic_tac_toe.get_player()[1].get_value())
+        return player2_input
 
     @staticmethod
     def check_empty_box_for_player_one(tic_tac_toe: TicTacToe):
