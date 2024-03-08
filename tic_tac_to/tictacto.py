@@ -22,9 +22,9 @@ class TicTacTo:
         return self.players
 
     def pickPosition(self, position: int, value: Value):
-        self.checker += 1
         self.__validate_user_input(position)
         self.fill_box(position, value)
+        self.checker += 1
 
     def __check_if_player_played_in_row_one_and_fill_board(self, position: int, value: Value):
         if 0 < position <= 3:

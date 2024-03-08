@@ -68,6 +68,7 @@ class TicTacToeApp:
             print(tic_tac_toe)
             TicTacToeApp.play(tic_tac_toe)
             user_response = input("Do you want to continue the game (yes or no) ").lower()
+            if user_response == "no": break
             while user_response != "yes" and user_response != "no":
                 user_response = input("Please enter 'yes' or not  :( ")
             tic_tac_toe = TicTacTo()
