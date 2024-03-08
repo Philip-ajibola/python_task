@@ -96,7 +96,7 @@ class TicTacTo:
     def __check_if_player_win_diagonally(self) -> str:
         if self.board[0][0] == self.board[1][1] and self.board[0][0] == self.board[2][2] and self.board[0][0] != Value.EMPTY:
             return self.__check_winner_with_players_values(self.board[0][0])
-        elif self.board[0][2] == self.board[1][1] and self.board[2][0] and self.board[0][2] != Value.EMPTY:
+        elif self.board[0][2] == self.board[1][1] and self.board[0][2] == self.board[2][0] and self.board[0][2] != Value.EMPTY:
             return self.__check_winner_with_players_values(self.board[0][2])
 
     def fill_box(self, position: int, value: Value) -> None:
