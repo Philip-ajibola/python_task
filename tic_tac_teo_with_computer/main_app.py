@@ -35,6 +35,7 @@ class TicTacToeApp:
                 if tic_tac_toe.getWinner() != "":
                     print(tic_tac_toe.getWinner())
                     break
+        TicTacToeApp.list1.clear()
 
     @staticmethod
     def collect_player_one_input(tic_tac_toe: TicTacToe):
@@ -44,18 +45,14 @@ class TicTacToeApp:
 
     @staticmethod
     def collect_player_two_input(tic_tac_toe: TicTacToe):
-
-        tic_tac_toe.pickPosition(TicTacToeApp.collect_computer_value(), tic_tac_toe.get_player()[1].get_value())
-
-    @staticmethod
-    def collect_computer_value():
         print("The Computer is Playing Next... ")
         time.sleep(1)
-        player2_input = randint(1, 10)
-        while TicTacToeApp.list1.__contains__(player2_input):
-            player2_input = randint(1, 10)
-        TicTacToeApp.list1.append(player2_input)
-        return player2_input
+        computer_input = randint(1, 9)
+        while TicTacToeApp.list1.__contains__(computer_input):
+            print("yes")
+            computer_input = randint(1, 9)
+        TicTacToeApp.list1.append(computer_input)
+        tic_tac_toe.pickPosition(computer_input, tic_tac_toe.get_player()[1].get_value())
 
     @staticmethod
     def check_empty_box_for_player_one(tic_tac_toe: TicTacToe):
@@ -90,7 +87,7 @@ class TicTacToeApp:
             while user_response != "yes" and user_response != "no":
                 user_response = input("Please enter 'yes' or not  :( ")
             tic_tac_toe = TicTacToe()
-        print("THANK YOU FOR PLAYING TICTACTO GAME \n HOPE YOU ENJOYED PLAYING IT ")
+        print("\nTHANK YOU FOR PLAYING TICTACTO GAME \n HOPE YOU ENJOYED PLAYING IT ")
 
 
 if __name__ == "__main__":
