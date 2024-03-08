@@ -1,3 +1,8 @@
+from random import randint
+
+from tic_tac_teo_with_computer.tic_tac_teo import TicTacToe
+
+
 class TicTacToeApp:
     @staticmethod
     def display_heading():
@@ -10,7 +15,7 @@ class TicTacToeApp:
         """)
 
     @staticmethod
-    def play(tic_tac_toe: TicTacTo):
+    def play(tic_tac_toe: TicTacToe):
         for number in range(5):
             TicTacToeApp.check_empty_box_for_player_one(tic_tac_toe)
             print()
@@ -27,17 +32,20 @@ class TicTacToeApp:
                     break
 
     @staticmethod
-    def collect_player_one_input(tic_tac_toe: TicTacTo):
+    def collect_player_one_input(tic_tac_toe: TicTacToe):
         player1_input = int(input("Player one enter the box you want to fill "))
         tic_tac_toe.pickPosition(player1_input, tic_tac_toe.get_player()[0].get_value())
 
     @staticmethod
-    def collect_player_two_input(tic_tac_toe: TicTacTo):
-        player2_input = int(input("Player two enter the box you want to fill "))
+    def collect_player_two_input(tic_tac_toe: TicTacToe):
+        player2_input = randint(1, 10)
+        list1 = []
+        while player2_input.__contains__(player2_input):
+            player2_input = randint(1, 10)
         tic_tac_toe.pickPosition(player2_input, tic_tac_toe.get_player()[1].get_value())
 
     @staticmethod
-    def check_empty_box_for_player_one(tic_tac_toe: TicTacTo):
+    def check_empty_box_for_player_one(tic_tac_toe: TicTacToe):
         condition = True
         while condition:
             try:
@@ -47,7 +55,7 @@ class TicTacToeApp:
                 print(e)
 
     @staticmethod
-    def check_empty_box_for_player_two(tic_tac_toe: TicTacTo):
+    def check_empty_box_for_player_two(tic_tac_toe: TicTacToe):
         condition = True
         while condition:
             try:
@@ -57,7 +65,7 @@ class TicTacToeApp:
                 print(e)
 
     @staticmethod
-    def main_menu(tic_tac_toe: TicTacTo):
+    def main_menu(tic_tac_toe: TicTacToe):
         TicTacToeApp.display_heading()
         print()
         user_response = ""
@@ -68,10 +76,10 @@ class TicTacToeApp:
             if user_response == "no": break
             while user_response != "yes" and user_response != "no":
                 user_response = input("Please enter 'yes' or not  :( ")
-            tic_tac_toe = TicTacTo()
+            tic_tac_toe = TicTacToe()
         print("THANK YOU FOR PLAYING TICTACTO GAME \n HOPE YOU ENJOYED PLAYING IT ")
 
 
 if __name__ == "__main__":
-    tic_tac_toe_game = TicTacTo()
+    tic_tac_toe_game = TicTacToe()
     TicTacToeApp.main_menu(tic_tac_toe_game)
