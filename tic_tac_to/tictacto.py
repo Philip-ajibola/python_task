@@ -55,7 +55,7 @@ class TicTacTo:
 
     @staticmethod
     def __validate_user_input(user_input: int):
-        if user_input> 9 or user_input <= 0:
+        if user_input > 9 or user_input <= 0:
             raise ValueError("Box Number not found")
 
     def __check_if_box_is_empty(self, position: int):
