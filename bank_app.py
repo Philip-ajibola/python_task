@@ -54,7 +54,7 @@ class BankApp:
             BankApp.output(e)
             self.create_account()
 
-    def deposit(self,account: Account):
+    def deposit(self, account: Account):
         try:
             amount = int(BankApp.user_input("Enter amount you want to deposit :) : "))
             account.deposit(amount)
@@ -64,7 +64,7 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def transfer(self,account: Account):
+    def transfer(self, account: Account):
         try:
             receiver_account = self.bank.find_account(int(BankApp.user_input("Enter the receiver account number: ")))
             amount = int(BankApp.user_input("Enter transfer amount: "))
@@ -77,7 +77,7 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def withdraw(self,account: Account):
+    def withdraw(self, account: Account):
         try:
             amount = int(BankApp.user_input("Enter the amount: "))
             pin = BankApp.user_input("Enter your pin: ")
@@ -88,7 +88,7 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def check_balance(self,account: Account):
+    def check_balance(self, account: Account):
         try:
             pin = BankApp.user_input("Enter your pin: ")
             BankApp.output(f"Your balance is:{account.check_balance(pin)}")
@@ -97,7 +97,7 @@ class BankApp:
         finally:
             self.display_what_user_can_do(account)
 
-    def close_account(self,account: Account):
+    def close_account(self, account: Account):
         try:
             pin = BankApp.user_input("Enter your pin: ")
             self.bank.remove_account(account, pin)
@@ -147,7 +147,7 @@ class BankApp:
                 self.display()
             case _:
                 BankApp.output("Wrong Input")
-                self.display()
+                self.display_what_user_can_do(account)
 
     @staticmethod
     def verify_pin():
@@ -165,7 +165,10 @@ class BankApp:
 
     @staticmethod
     def verify_customer_names(name):
-        if name.isspace(): raise ValueError("First Name Can't Be A space Character alone")
+
+        if name.isspace() or len(name) == 0 or name.isdigit(): raise ValueError(
+            "First Name Can't Be A space Character alone and Name "
+            "can't be Empty and contains only alphanumeric characters")
 
     def collect_customer_names(self):
         first_name = BankApp.user_input("Enter first name: ")
