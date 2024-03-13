@@ -41,14 +41,16 @@ class Diary:
         self.__entries.remove(entry)
 
     def find_entry(self, entry_id: int) -> Entry:
-        for entry in self.__entries:
-            print(entry.get_id())
-            if entry.get_id() == entry_id:
-                return entry
-            else:
-                raise ValueError("Entry Does Not Exist ")
+        if self.__entries:
+            for entry in self.__entries:
+                print(entry.get_id())
+                if entry.get_id() == entry_id:
+                    return entry
+                else:
+                    raise ValueError("Entry Does Not Exist ")
+        else: raise ValueError("No Entry Existed Yet")
 
-    def update_entry(self, entry_id: int,updated_title,updated_body):
+    def update_entry(self, entry_id: int, updated_title, updated_body):
         entry_to_update = self.find_entry(entry_id)
         for entry in self.__entries:
             if entry == entry_to_update:
@@ -59,11 +61,7 @@ class Diary:
     def get_user_name(self):
         return self.__user_name
 
-    def getEntryNumber(self,title):
+    def getEntryNumber(self, title):
         for entry in self.__entries:
             if entry.get_title() == title:
                 return entry.get_id()
-
-
-
-
