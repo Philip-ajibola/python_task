@@ -31,12 +31,12 @@ class TicTacToeApp:
 
     @staticmethod
     def collect_player_one_input(tic_tac_toe: TicTacTo):
-        player1_input = int(input("Player one enter the box you want to fill "))
+        player1_input = int(input("Player one enter the box you want to fill  (1-9) "))
         tic_tac_toe.pickPosition(player1_input, tic_tac_toe.get_player()[0].get_value())
 
     @staticmethod
     def collect_player_two_input(tic_tac_toe: TicTacTo):
-        player2_input = int(input("Player two enter the box you want to fill "))
+        player2_input = int(input("Player two enter the box you want to fill (1-9)"))
         tic_tac_toe.pickPosition(player2_input, tic_tac_toe.get_player()[1].get_value())
 
     @staticmethod
@@ -47,7 +47,7 @@ class TicTacToeApp:
                 TicTacToeApp.collect_player_one_input(tic_tac_toe)
                 condition = False
             except ValueError as e:
-                print(e)
+                print("Enter A Valid Input (1-9)")
 
     @staticmethod
     def check_empty_box_for_player_two(tic_tac_toe: TicTacTo):

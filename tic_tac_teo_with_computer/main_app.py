@@ -61,7 +61,7 @@ class TicTacToeApp:
                 TicTacToeApp.collect_player_one_input(tic_tac_toe)
                 condition = False
             except ValueError as e:
-                print(e)
+                print("Enter A Valid Input (1-9)")
 
     @staticmethod
     def check_empty_box_for_player_two(tic_tac_toe: TicTacToe):
@@ -72,6 +72,7 @@ class TicTacToeApp:
                 condition = False
             except ValueError as e:
                 print(e)
+
 
     @staticmethod
     def main_menu(tic_tac_toe: TicTacToe):
