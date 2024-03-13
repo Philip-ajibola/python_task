@@ -17,4 +17,4 @@ class Entry:
         self.__title = title
 
     def __repr__(self):
-        return (f"Title: {self.__title} \n\n\nBody{self.__body}")
+        return f"Title: {self.__title} \n\n\nBody; {self.__body}"

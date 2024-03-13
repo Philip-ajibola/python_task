@@ -54,7 +54,6 @@ class Diary:
         entry_to_update = self.find_entry(entry_id)
         for entry in self.__entries:
             if entry == entry_to_update:
-                print("yes")
                 entry.update_title(updated_title)
                 entry.update_body(updated_body)
 

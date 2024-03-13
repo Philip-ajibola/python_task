@@ -151,15 +151,9 @@ class DiaryApp:
     def display_response_to_user_input(diary, user_input):
         match user_input:
             case 1:
-                try:
-                    DiaryApp.add_entry(diary)
-                except Exception as e:
-                    DiaryApp.output(f"{e}")
-                finally:
-                    DiaryApp.display_response_to_user_input(diary, user_input)
-
+                DiaryApp.add_entry(diary)
             case 2:
-                DiaryApp.unLock_diary(diary)
+                DiaryApp.update_entry(diary)
             case 3:
                 DiaryApp.find_entry_by_id(diary)
             case 4:
