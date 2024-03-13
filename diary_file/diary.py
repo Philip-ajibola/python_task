@@ -8,7 +8,7 @@ class Diary:
         self.__entries = []
         self.__user_name = user_name
         self.__password = password
-        self.__isLocked = True
+        self.__isLocked = False
         self.__entry_id_generator = 0
 
     def unlock_diary(self, password: str):

@@ -26,9 +26,12 @@ class DiaryApp:
 
     @staticmethod
     def lock_diary(diary: Diary):
-        diary.lock_diary()
-        time.sleep(0.5)
-        DiaryApp.output("Diary Successfully Locked")
+        if diary.isLocked():
+            DiaryApp.output("Diary is already locked")
+        else:
+            diary.lock_diary()
+            time.sleep(0.5)
+            DiaryApp.output("Diary Successfully Locked")
         DiaryApp.display(diary)
 
     @staticmethod
@@ -50,7 +53,6 @@ class DiaryApp:
     def find_entry_by_id(diary: Diary):
         try:
             DiaryApp.__check_if_diary_unlock(diary)
-            if not (DiaryApp.__check_if_diary_unlock(diary)): DiaryApp.output("Diary is Unlocked Already")
             user_response = int(DiaryApp._input_("Enter your EntryId"))
             returned_entry = diary.find_entry(user_response)
             DiaryApp.output(f"{returned_entry}")
@@ -63,6 +65,7 @@ class DiaryApp:
     @staticmethod
     def add_entry(diary: Diary):
         try:
+            DiaryApp.__check_if_diary_unlock(diary)
             title = DiaryApp._input_("Enter Title of Entry")
             body = DiaryApp._input_("Enter body Of The Entry")
             diary.create_entry(title, body)
@@ -100,6 +103,7 @@ class DiaryApp:
     @staticmethod
     def delete_entry(diary: Diary):
         try:
+            DiaryApp.__check_if_diary_unlock(diary)
             entry_id = int(DiaryApp._input_("Enter entryId"))
             diary.delete_entry(entry_id)
             time.sleep(0.5)
